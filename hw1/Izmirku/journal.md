@@ -1,1 +1,1 @@
-
+I asked for a minimal refactor of my original Viegener cipher.py that kept the cipher logic unchanged. The changes were: (1) moved key validation inside the encrypt/decrypt functions so they're pure; (2) wrapped the CLI in a main() guarded by if __name__ == "__main__":; (3) added try/except ValueError so an invalid key like '123' produces a clean error instead of a traceback; (4) added an explicit Round-trip: PASS/FAIL print. I verified the cipher math was untouched by comparing outputs against my original script on the same inputs.
