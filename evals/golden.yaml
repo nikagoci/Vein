@@ -1,0 +1,33 @@
+- id: g1
+  type: factual
+  question: How does the Caesar cipher work?
+  expect: answer
+  must_cite: caesar.md
+  must_mention: shifts
+  why: core definition lives in one document
+- id: g2
+  type: factual
+  question: What kind of cipher is rail fence?
+  expect: answer
+  must_cite: rail_fence.md
+  must_mention: transposition
+  why: classification is stated in one sentence
+- id: g3
+  type: reasoning
+  question: Why is Vigenere harder to break than Caesar?
+  expect: answer
+  must_cite: vigenere.md
+  must_mention: frequency
+  why: the comparison is made in the Vigenere document
+- id: g4
+  type: edge
+  question: vigenere key repeat
+  expect: answer
+  must_cite: vigenere.md
+  must_mention: repeats
+  why: no accent, no full sentence
+- id: g5
+  type: refusal
+  question: What is the best way to hash passwords?
+  expect: refuse
+  why: nothing in the corpus covers hashing
