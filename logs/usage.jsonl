@@ -1,0 +1,4 @@
+{"ts": 1792494971.8829637, "question": "How does the Caesar cipher work?", "grounded": true, "reason": "ok", "top_score": 1.0, "model": "none"}
+{"ts": 1792494971.9204574, "question": "What kind of cipher is rail fence?", "grounded": true, "reason": "ok", "top_score": 0.596, "model": "none"}
+{"ts": 1792494971.9575527, "question": "Why is Vigenere harder to break than Caesar?", "grounded": true, "reason": "ok", "top_score": 0.352, "model": "none"}
+{"ts": 1792494971.9992008, "question": "What is the best way to hash passwords?", "grounded": false, "reason": "below threshold", "top_score": 0.193, "model": "none"}
