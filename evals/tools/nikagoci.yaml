@@ -1,0 +1,40 @@
+tool: encrypt_vigenere
+cases:
+  - name: normal_known_answer
+    arguments:
+      text: attackatdawn
+      key: lemon
+    expect:
+      ciphertext: lxfopvefrnhr
+    why: Checks the standard Vigenere example.
+
+  - name: normal_preserves_spaces_and_punctuation
+    arguments:
+      text: Attack at dawn!
+      key: lemon
+    expect:
+      ciphertext: Lxfopv ef rnhr!
+    why: Confirms case, spaces, and punctuation are preserved.
+
+  - name: normal_preserves_non_english_characters
+    arguments:
+      text: Cafeé, hello!
+      key: key
+    expect:
+      ciphertext: Medoé, lcvpm!
+    why: Confirms non-English characters are preserved and do not consume the key.
+
+  - name: bad_input_rejects_key_with_digits
+    arguments:
+      text: hello
+      key: le123mon
+    expect_error: "Invalid key. Use 1–64 English letters (A–Z) only; remove spaces, digits, and punctuation."
+    why: A key containing digits must be refused with a corrective instruction.
+
+  - name: adversarial_rejects_identity_field
+    arguments:
+      text: hello
+      key: lemon
+      user_id: another-user
+    expect_error: "Unexpected argument. Send only 'text' and 'key'; do not include user or account identifiers."
+    why: Identity fields are not part of the tool's least-privilege contract.
