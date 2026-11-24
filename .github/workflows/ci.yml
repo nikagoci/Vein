@@ -1,18 +1,18 @@
-name: tests
+name: ci
 
 on:
   push:
   pull_request:
 
 jobs:
-  pytest:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install test and tool dependencies
-        run: python -m pip install --upgrade pip pytest pyyaml "pydantic>=2,<3" "mcp>=1,<2"
-      - name: Run tests
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+      - name: Run tests (includes every evals/tools/*.yaml golden case; no model, no key)
         run: python -m pytest -q
