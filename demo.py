@@ -1,9 +1,10 @@
 """Interactive tour of every Vein feature.  Run:  python demo.py"""
 import json
+import os
 import subprocess
 import sys
 
-from src import caesar, rail_fence, vigenere
+from src import caesar, llm, rail_fence, vigenere
 from src.answer import ask
 from src.retrieve import ROOT
 
@@ -52,12 +53,18 @@ def brute():
 
 
 def ask_loop():
+    live = os.environ.get("VEIN_LIVE") == "1"
     print("  Try: 'How does the Caesar cipher work?'  or an off-topic one. Empty line to go back.")
+    print(f"  Mode: {'live model ' + llm.model_name() if live else 'extractive, no model (set VEIN_LIVE=1 for the model)'}")
     while True:
         q = input("  Question: ").strip()
         if not q:
             return
-        r = ask(q)
+        try:
+            r = ask(q, generate=llm.generate if live else None)
+        except RuntimeError as e:
+            print("  Error:", e)
+            return
         print("  ", r["answer"])
         for c in r["citations"]:
             print(f"    [{c['n']}] {c['source']}")
@@ -75,7 +82,11 @@ def show_log():
         return
     for line in p.read_text(encoding="utf-8").splitlines()[-10:]:
         d = json.loads(line)
-        print(f"  grounded={d['grounded']!s:5} score={d['top_score']:<5} {d['reason']:<16} {d['question']}")
+        if d.get("kind") == "chat":   # one line per model call, written by src/llm.py
+            print(f"  model call  {d['model']}  in={d['tokens_in']} out={d['tokens_out']} "
+                  f"cost=${d['cost_usd']} latency={d['latency_ms']}ms")
+        else:                         # one line per answer or refusal, written by src/answer.py
+            print(f"  grounded={d['grounded']!s:5} score={d['top_score']:<5} {d['reason']:<16} {d['question']}")
 
 
 ACTIONS = {
