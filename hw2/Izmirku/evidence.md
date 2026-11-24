@@ -21,14 +21,19 @@ TODO (Saba): connect a host (`claude mcp add --transport stdio vein -- python -m
 
 ## The red run: proof the gate blocks
 
-TODO (Saba): on a throwaway branch, weaken the contract in `src/contracts.py` (for example, remove `max_length=300` and change `extra="forbid"` to `extra="ignore"`), push, open a pull request, and paste:
+Branch `hw2-red-Izmirku` weakened the contract in `src/contracts.py`: `extra="forbid"` became `extra="ignore"`, and `max_length=300` was removed from `Question`. Pull request #3 (closed, not merged).
 
-- Red run link: TODO
-- Which tests failed, and what the merge button said: TODO
+- Red run: https://github.com/nikagoci/Vein/actions/runs/45420984574/job/138540099743?pr=3
+- Result: `9 failed, 77 passed`, exit code 1. Failures:
+  - golden `test_tool_golden_case[Izmirku:b1]`: the 306-character question was no longer refused; it ran and came back as a refusal from retrieval instead of a contract error
+  - golden `test_tool_golden_case[Izmirku:a2]`: `corpus_path: "../../.env"` was silently ignored and the tool answered
+  - `test_invalid_arguments_never_reach_the_tool` for the too-long question, `k`, `threshold` and `corpus_path`: the arguments reached the tool
+  - `test_identity_is_not_an_argument`: `user_id` was accepted
+  - `test_schema_exposes_only_the_question`: the schema the model sees no longer says `additionalProperties: false`
+  - `test_bad_arguments_are_rejected_through_mcp`: the MCP door accepted the 301-character question
+- Merge box on #3: TODO (Saba): what it said (blocked, or checks failed but the button was still clickable)
 
-Then close the pull request without merging and delete the branch.
-
-(Checked locally before pushing: with exactly that change, 9 tests fail, including golden cases `Izmirku:b1` and `Izmirku:a2`.)
+The same change was checked locally before pushing and gave the same 9 failures.
 
 ## The green run
 
