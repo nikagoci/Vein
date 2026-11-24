@@ -1,6 +1,6 @@
 import argparse
 
-from . import caesar, rail_fence, vigenere
+from . import caesar, llm, rail_fence, vigenere
 from .answer import ask
 
 
@@ -14,11 +14,14 @@ def main(argv=None):
         p.add_argument("key")
     q = sub.add_parser("ask")
     q.add_argument("question")
+    q.add_argument("--live", action="store_true",
+                   help="write the answer with the model in src/llm.py (needs OPENROUTER_API_KEY); "
+                        "default: extract sentences from the sources, no model")
     a = ap.parse_args(argv)
 
     try:
         if a.cmd == "ask":
-            r = ask(a.question)
+            r = ask(a.question, generate=llm.generate if a.live else None)
             print(r["answer"])
             for c in r["citations"]:
                 print(f"  [{c['n']}] {c['source']}")
@@ -31,7 +34,7 @@ def main(argv=None):
             print((vigenere.encrypt if enc else vigenere.decrypt)(a.text, a.key))
         else:
             print((rail_fence.encrypt_rail if enc else rail_fence.decrypt_rail)(a.text, int(a.key)))
-    except ValueError as e:
+    except (ValueError, RuntimeError) as e:
         print(f"Error: {e}")
 
 
