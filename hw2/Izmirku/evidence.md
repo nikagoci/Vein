@@ -31,7 +31,8 @@ Branch `hw2-red-Izmirku` weakened the contract in `src/contracts.py`: `extra="fo
   - `test_identity_is_not_an_argument`: `user_id` was accepted
   - `test_schema_exposes_only_the_question`: the schema the model sees no longer says `additionalProperties: false`
   - `test_bad_arguments_are_rejected_through_mcp`: the MCP door accepted the 301-character question
-- Merge box on #3: TODO (Saba): what it said (blocked, or checks failed but the button was still clickable)
+- Merge box on #3, first look: "All checks have failed" (`tests / pytest (pull_request)` and `tests / pytest (push)`), but also "Merging can be performed automatically". `main` had no branch protection yet, so CI caught the weakened contract but did not stop a merge.
+- After branch protection was turned on for `main` (require `tests / pytest`): TODO (Saba): paste what the merge box on #3 said then.
 
 The same change was checked locally before pushing and gave the same 9 failures.
 
