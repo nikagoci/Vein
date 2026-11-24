@@ -37,7 +37,7 @@ The same change was checked locally before pushing and gave the same 9 failures.
 
 ## The green run
 
-TODO (Saba): link the green CI run of the product pull request: TODO
+Product pull request #2 (*HW2 · Izmirku · ask_cipher_docs tool*), merged into `main`. Green `tests / pytest` run: https://github.com/nikagoci/Vein/actions/runs/45419826401/job/138535973249 (86 passed, including all six `Izmirku` golden cases). The workflow runs on both `push` and `pull_request`, so the PR shows two green `pytest` checks for the same commit.
 
 ## What the red run taught me
 
