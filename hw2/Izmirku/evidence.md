@@ -2,7 +2,7 @@
 
 ## The golden cases
 
-[`evals/tools/Izmirku.yaml`](../../evals/tools/Izmirku.yaml), run by [`tests/test_tool_golden_template.py`](../../tests/test_tool_golden_template.py) through `call_tool()`, with no model and no key, in the CI job `test`. Actual results from a local run on 2026-11-24 (`python -m pytest tests/test_tool_golden_template.py -v`: 8 passed).
+[`evals/tools/Izmirku.yaml`](../../evals/tools/Izmirku.yaml), run by [`tests/test_tool_golden_template.py`](../../tests/test_tool_golden_template.py) through `call_tool()`, with no model and no key, in the existing CI check `tests / pytest`. Actual results from a local run on 2026-11-24 (`python -m pytest tests/test_tool_golden_template.py -v`: 8 passed).
 
 | # | Type | Call | Expected | Actual | Pass? |
 |---|---|---|---|---|---|
