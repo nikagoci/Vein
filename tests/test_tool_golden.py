@@ -4,7 +4,7 @@ import pytest
 import yaml
 
 from src.tool_registry import call_tool
-from src.tools.vigenere_encrypt import ToolInputError
+from src.tools import ToolInputError
 
 
 GOLDEN_FILE = Path(__file__).resolve().parents[1] / "evals" / "tools" / "nikagoci.yaml"
