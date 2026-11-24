@@ -52,4 +52,4 @@ Product pull request #2 (*HW2 · Izmirku · ask_cipher_docs tool*), merged into 
 
 ## What the red run taught me
 
-TODO (Saba): one paragraph, in your own words.
+The tests did their job: with the contract weakened, 9 of them failed, including my golden cases b1 and a2. But GitHub still said "Merging can be performed automatically", so the red check on its own did not stop anything. Next time I would add a rule to `main` that does not allow a pull request that failed its tests to be merged, which means turning on branch protection.
