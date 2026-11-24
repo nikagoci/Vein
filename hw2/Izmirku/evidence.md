@@ -17,7 +17,17 @@ Whole suite on the branch: `python -m pytest -q` → 86 passed.
 
 Through the MCP door: `tests/test_mcp.py` lists both tools, checks the two doors describe `ask_cipher_docs` identically, and calls it through an in-memory MCP client.
 
-TODO (Saba): connect a host (`claude mcp add --transport stdio vein -- python -m src.mcp_server`, then `/mcp`), ask it one question that makes it call `ask_cipher_docs`, and paste the question and answer here.
+Connected to a real host, Claude Code: `claude mcp add --transport stdio vein -- "$PWD/.venv/bin/python" -m src.mcp_server`, then `/mcp` showed "Reconnected to vein".
+
+Question: *How does Caesar cipher work according to Veins notes*. The host called the `vein` tool and answered:
+
+> Vein's notes say the Caesar cipher shifts every letter of the alphabet by the same fixed number of places. With a shift of 3, A becomes D and B becomes E. (source: caesar.md)
+>
+> The notes link it to the Vigenère cipher, which uses a keyword to pick a different Caesar shift for each letter. Because the keyword repeats along the message, the same plain letter can turn into different cipher letters. (source: vigenere.md)
+>
+> That's all the notes cover. They don't explain decryption, how letters near Z wrap around, or what happens to characters that aren't letters. I can look up any of those if you want.
+
+Every fact in the answer comes from the two cited sources. One thing I noticed: `caesar.md` does explain decryption in its second paragraph, but with k=2 the keyword retrieval returned the Vigenère paragraph instead, so the host was told nothing about it. This is the keyword-retrieval limit already recorded in decision 0002.
 
 ## The red run: proof the gate blocks
 
